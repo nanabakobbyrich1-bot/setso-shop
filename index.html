@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX SHOP - Bubieshie, Accra</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif}
+body{background:#f1f1f2}
+.header{background:#000;color:#fff;padding:10px 12px;position:sticky;top:0;z-index:99}
+.logo{font-weight:900;font-size:20px}.logo span{color:#FFD700}
+.search{margin-top:8px;background:#fff;border-radius:12px;display:flex;overflow:hidden}
+.search input{flex:1;border:none;padding:12px;outline:none;font-size:14px}
+.search button{background:#FFD700;border:none;padding:0 16px;font-weight:900}
+.banner{margin:10px;background:linear-gradient(135deg,#000,#222);color:#fff;padding:16px;border-radius:16px;display:flex;justify-content:space-between;align-items:center}
+.chips{display:flex;gap:8px;overflow:auto;padding:6px 12px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{background:#fff;padding:10px 16px;border-radius:24px;font-weight:800;font-size:13px;white-space:nowrap;cursor:pointer;border:2px solid transparent}
+.chip.active{background:#000;color:#fff;border-color:#FFD700}
+.count{padding:0 12px;font-size:13px;font-weight:700;color:#666;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 10px 80px}
+.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.07);position:relative}
+.imgbox{height:145px;background:#fff;display:flex;align-items:center;justify-content:center}
+.imgbox img{width:100%;height:100%;object-fit:contain;padding:8px}
+.info{padding:8px 10px 10px}
+.info h4{font-size:11.5px;line-height:1.3;min-height:30px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.price{font-weight:900;font-size:15px;margin:5px 0}.old{font-size:10px;color:#999;text-decoration:line-through;margin-left:4px;font-weight:400}
+.btn{background:#000;color:#fff;width:100%;border:none;padding:9px;border-radius:9px;font-weight:800;font-size:11px;text-align:center;display:block;text-decoration:none}
+.tag{position:absolute;top:6px;right:6px;background:#FF3B30;color:#fff;font-size:9px;font-weight:900;padding:4px 6px;border-radius:12px}
+.wa{position:fixed;bottom:16px;right:14px;background:#25D366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 12px rgba(0,0,0,.3);z-index:100;text-decoration:none}
+.footer{background:#000;color:#888;text-align:center;padding:20px;font-size:12px;margin-top:10px}
+.footer b{color:#fff}
+</style>
+</head>
+<body>
+<div class="header">
+<div style="display:flex;justify-content:space-between;align-items:center"><div class="logo">APEX <span>SHOP</span></div><div style="font-size:12px">📍 Bubieshie, Accra</div></div>
+<div class="search"><input id="searchInput" oninput="doSearch()" placeholder="Search 200 products..."><button onclick="doSearch()">Search</button></div>
+</div>
+
+<div class="banner"><div><h3 style="font-size:16px">Quality Electronics & Printing 🔥</h3><p style="font-size:12px;opacity:.8;margin-top:3px">Fast Delivery in Bubieshie, Accra • MoMo Pay</p></div><div style="font-size:22px">📍</div></div>
+
+<div class="chips" id="chips">
+<div class="chip active" onclick="filterCat('All',this)">📱 All (200)</div>
+<div class="chip" onclick="filterCat('Chargers',this)">🔌 Chargers (65)</div>
+<div class="chip" onclick="filterCat('Stands',this)">📐 Stands (35)</div>
+<div class="chip" onclick="filterCat('Cables',this)">🔗 Cables (40)</div>
+<div class="chip" onclick="filterCat('Accessories',this)">🎧 Accessories (40)</div>
+<div class="chip" onclick="filterCat('Printing',this)">👕 Printing (20)</div>
+</div>
+
+<div class="count" id="countText">Showing 200 products</div>
+<div class="grid" id="grid"></div>
+
+<a class="wa" href="https://wa.me/233249303078">💬</a>
+
+<div class="footer">
+<b>APEX SHOP</b><br>
+Bubieshie, Accra - Ghana<br><br>
+WhatsApp: +233 24 930 3078<br>
+MoMo: 024 930 3078<br>
+Fast Delivery Around Bubieshie & Accra
+</div>
+
+<script>
+const base = [
+{cat:'Chargers', name:'iPhone 20W Fast Charger', price:90, old:120, img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MHJE3?wid=800&hei=800'},
+{cat:'Chargers', name:'Samsung 25W Super Fast Charger', price:85, img:'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400'},
+{cat:'Chargers', name:'Oraimo Fast Charger Type C', price:70, img:'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400'},
+{cat:'Stands', name:'Metal Desktop Phone Stand', price:45, img:'https://m.media-amazon.com/images/I/71ZpJ4VW5wL._AC_SL1500_.jpg'},
+{cat:'Stands', name:'Car Dashboard Holder 360°', price:60, img:'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=400'},
+{cat:'Cables', name:'3-in-1 Fast Charging Cable', price:35, img:'https://images.unsplash.com/photo-1625842268584-8f3296236761?w=400'},
+{cat:'Accessories', name:'Wireless Earbuds TWS', price:120, img:'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400'},
+{cat:'Printing', name:'Custom T-Shirt Printing', price:80, img:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400'}
+];
+let products=[]; let id=1;
+for(let i=0;i<200;i++){
+ let b = base[i % base.length];
+ let variant = i>7 ? ` - Model ${String.fromCharCode(65+(i%26))}${Math.floor(i/8)+1}` : '';
+ products.push({id:id++,cat:b.cat,name:b.name+variant,price:b.price+(i%5)*5,old:i%3==0?b.price+30:null,img:b.img});
+}
+let currentCat='All'; let searchText='';
+function render(){
+ let filtered = products.filter(p=>{
+  let catOk = currentCat==='All' || p.cat===currentCat;
+  let searchOk = p.name.toLowerCase().includes(searchText.toLowerCase());
+  return catOk && searchOk;
+ });
+ document.getElementById('countText').innerText=`Showing ${filtered.length} products • ${currentCat} • Bubieshie, Accra`;
+ document.getElementById('grid').innerHTML = filtered.map(p=>`
+  <div class="card">
+   ${p.old?`<span class="tag">-${Math.round((1-p.price/p.old)*100)}%</span>`:''}
+   <div class="imgbox"><img src="${p.img}" loading="lazy"></div>
+   <div class="info">
+    <h4>${p.name}</h4>
+    <div class="price">GHS ${p.price} ${p.old?`<span class="old">GHS ${p.old}</span>`:''}</div>
+    <a class="btn" href="https://wa.me/233249303078?text=Hi%20APEX%20Bubieshie%20I%20want%20${encodeURIComponent(p.name)}%20GHS${p.price}">Order via MoMo</a>
+   </div>
+  </div>
+ `).join('');
+}
+function filterCat(cat, el){
+ currentCat=cat;
+ document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+ el.classList.add('active');
+ render();
+}
+function doSearch(){ searchText=document.getElementById('searchInput').value; render(); }
+render();
+</script>
+</body>
+</html>
