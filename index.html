@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SETSO SHOP - Ghana #1</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+body{background:#f6f6f7}
+header{background:#000;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99}
+.logo{font-weight:900;font-size:20px}
+.badge{background:#FFD60A;color:#000;padding:5px 12px;border-radius:8px;font-weight:900;font-size:13px}
+.cart{background:#fff;color:#000;padding:6px 14px;border-radius:20px;font-weight:900;cursor:pointer}
+.container{max-width:1100px;margin:auto;padding:14px}
+h2{font-size:24px;font-weight:900;margin:24px 0 12px}
+.cat{background:#000;color:#FFD60A;display:inline-block;padding:4px 10px;border-radius:6px;font-size:12px;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(min-width:700px){.grid{grid-template-columns:1fr 1fr 1fr}}
+.card{background:#fff;border-radius:16px;padding:12px;box-shadow:0 3px 12px rgba(0,0,0,.06);display:flex;flex-direction:column}
+.card img{width:100%;height:150px;object-fit:cover;border-radius:10px;background:#eee}
+.card h3{font-size:14px;margin:8px 0 2px;line-height:1.2}
+.price{font-weight:900;margin:4px 0 8px}
+.btn{margin-top:auto;background:#000;color:#fff;border:none;padding:11px;border-radius:10px;font-weight:800;cursor:pointer;width:100%}
+.btn-y{background:#FFD60A;color:#000}
+.custom{background:#fff;border-radius:16px;padding:16px}
+.drawer{position:fixed;top:0;right:-100%;width:92%;max-width:380px;height:100%;background:#fff;z-index:200;transition:.3s;padding:18px;overflow-y:auto}
+.drawer.open{right:0}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:150}
+.overlay.show{display:block}
+.input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:6px 0}
+.small{font-size:12px;color:#666}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">SETSO SHOP</div>
+<div style="display:flex;gap:8px;align-items:center"><span class="badge">Ghana #1</span><div class="cart" onclick="toggle(true)">🛒 <span id="count">0</span></div></div>
+</header>
+<div class="container">
+<h2>🔥 Hot Electronics</h2>
+<div class="grid">
+<div class="card"><span class="cat">SPEAKER</span><img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?w=400"><h3>JBL Boombox Speaker</h3><div class="price">GHS 350</div><button class="btn" onclick="add('JBL Boombox Speaker',350)">Order via MoMo</button></div>
+<div class="card"><span class="cat">PHONE</span><img src="https://images.unsplash.com/photo-1592899677977-9bb10ba128a5?w=400"><h3>Nokia C2 - New Boxed</h3><div class="price">GHS 450</div><button class="btn" onclick="add('Nokia C2',450)">Order via MoMo</button></div>
+<div class="card"><span class="cat">WATCH</span><img src="https://images.unsplash.com/photo-1525598912003-663126343e1f?w=400"><h3>Smart Watch + Free Strap</h3><div class="price">GHS 250</div><button class="btn" onclick="add('Smart Watch',250)">Order via MoMo</button></div>
+<div class="card"><span class="cat">HEADSET</span><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400"><h3>Bluetooth Headset P9</h3><div class="price">GHS 180</div><button class="btn" onclick="add('Bluetooth Headset',180)">Order via MoMo</button></div>
+</div>
+<h2>📱 Phone Accessories</h2>
+<div class="grid">
+<div class="card"><span class="cat">POWER</span><img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400"><h3>20000mAh Power Bank Fast</h3><div class="price">GHS 280</div><button class="btn" onclick="add('Power Bank 20000mAh',280)">Order via MoMo</button></div>
+<div class="card"><span class="cat">CHARGER</span><img src="https://images.unsplash.com/photo-1587037542707-0846c6a6b1c4?w=400"><h3>Fast Type-C Charger 33W</h3><div class="price">GHS 85</div><button class="btn" onclick="add('Type-C Fast Charger',85)">Order via MoMo</button></div>
+<div class="card"><span class="cat">CHARGER</span><img src="https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400"><h3>iPhone Lightning Charger</h3><div class="price">GHS 90</div><button class="btn" onclick="add('iPhone Charger',90)">Order via MoMo</button></div>
+<div class="card"><span class="cat">STAND</span><img src="https://images.unsplash.com/photo-1525598912003-663126343e1f?w=400"><h3>Phone Stand - Metal Desktop</h3><div class="price">GHS 45</div><button class="btn" onclick="add('Phone Stand Metal',45)">Order via MoMo</button></div>
+<div class="card"><span class="cat">HOLDER</span><img src="https://images.unsplash.com/photo-1593259037198-c720f4420d7d?w=400"><h3>Phone Holder for Car / Bike</h3><div class="price">GHS 60</div><button class="btn" onclick="add('Phone Holder',60)">Order via MoMo</button></div>
+<div class="card"><span class="cat">CABLE</span><img src="https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400"><h3>3-in-1 Charging Cable</h3><div class="price">GHS 35</div><button class="btn" onclick="add('3-in-1 Cable',35)">Order via MoMo</button></div>
+</div>
+<h2>🏷️ Custom Printing - Accra</h2>
+<div class="grid">
+<div class="card"><span class="cat">PRINTING</span><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"><h3>Custom T-Shirt - With Your Design</h3><div class="price">GHS 120</div><button class="btn btn-y" onclick="add('Custom T-Shirt',120)">Upload & Order</button></div>
+<div class="card"><span class="cat">NAME TAG</span><img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400"><h3>Office Name Tag - Acrylic</h3><div class="price">GHS 80</div><button class="btn btn-y" onclick="add('Office Name Tag Acrylic',80)">Order Name Tag</button></div>
+<div class="card"><span class="cat">NAME TAG</span><img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400"><h3>School Name Tag + Badge</h3><div class="price">GHS 25</div><button class="btn btn-y" onclick="add('School Name Tag',25)">Order Name Tag</button></div>
+<div class="card"><span class="cat">STICKER</span><img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400"><h3>Custom Stickers / Labels</h3><div class="price">GHS 50</div><button class="btn btn-y" onclick="add('Custom Stickers',50)">Order Stickers</button></div>
+</div>
+<div style="background:#000;color:#fff;border-radius:16px;padding:16px;margin:28px 0;text-align:center">
+<h3 style="color:#FFD60A">SETSO SHOP - CODE WITH SETSO</h3>
+<p class="small" style="color:#ccc;margin:8px 0">We Print & Deliver in Accra - 24hrs<br>Accra Delivery: GHS 25 | Outside: GHS 40-60</p>
+<p style="font-weight:900;margin-top:8px">📞 MoMo / WhatsApp: 0552961925</p>
+<a href="https://wa.me/233552961925" style="color:#FFD60A;text-decoration:none;font-weight:800">Chat on WhatsApp</a>
+</div>
+</div>
+<div class="overlay" id="over" onclick="toggle()"></div>
+<div class="drawer" id="drawer">
+<h2 style="margin:0">Your Cart 🛒</h2>
+<div id="items" style="margin:14px 0"></div>
+<div style="font-weight:900;font-size:20px">Total: GHS <span id="total">0</span></div>
+<input id="loc" class="input" placeholder="Your Location - e.g., Madina, Accra">
+<input id="custName" class="input" placeholder="Your Name">
+<button class="btn btn-y" style="margin-top:10px" onclick="checkout()">Checkout via WhatsApp + MoMo</button>
+<button class="btn" style="margin-top:8px;background:#eee;color:#000" onclick="toggle()">Continue Shopping</button>
+<p class="small" style="margin-top:12px">MoMo: 0552961925 - SETSO SHOP<br>Pay on delivery or MoMo. We confirm on WhatsApp.</p>
+</div>
+<script>
+let cart=[];
+function add(name,price){cart.push({name,price});update();toggle(true)}
+function update(){
+ document.getElementById('count').innerText=cart.length;
+ let total=0,html='';
+ cart.forEach(i=>{total+=i.price;html+=`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee"><span>${i.name}</span><b>GHS ${i.price}</b></div>`});
+ document.getElementById('items').innerHTML=html||'<p class=small>Cart empty</p>';
+ document.getElementById('total').innerText=total;
+}
+function toggle(open){
+ const d=document.getElementById('drawer'),o=document.getElementById('over');
+ if(open===true){d.classList.add('open');o.classList.add('show');return}
+ d.classList.toggle('open');o.classList.toggle('show');
+}
+function checkout(){
+ const loc=document.getElementById('loc').value||'Accra';
+ const name=document.getElementById('custName').value||'Customer';
+ const total=document.getElementById('total').innerText;
+ let msg=`Hello SETSO SHOP! 👋%0AName: ${name}%0ALocation: ${loc}%0A%0AI want to order:%0A`;
+ cart.forEach(i=>msg+=`- ${i.name} - GHS ${i.price}%0A`);
+ msg+=`%0ATotal: GHS ${total}%0A%0APayment: MoMo 0552961925`;
+ window.open(`https://wa.me/233552961925?text=${msg}`,'_blank');
+}
+</script>
+</body>
+</html>
